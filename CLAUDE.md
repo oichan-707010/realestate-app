@@ -47,6 +47,11 @@ Supabase認証付きの不動産管理Webアプリ。メールアドレス＋パ
 - `src/pages/`: 画面（Login / Signup / Properties / PropertyNew / PropertyEdit）
 - `supabase/migrations/`: データベースのスキーマ定義SQL
 
+## デプロイ情報
+
+- 本番URL：https://realestate-app-ruddy.vercel.app/login
+- Supabaseプロジェクト名：realestate-app
+
 ## Git 運用ルール
 
 - **コードを変更するたびに、コミットして GitHub にプッシュすること。** 変更をローカルに溜めたままにしない。
