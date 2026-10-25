@@ -6,7 +6,7 @@ import { supabase } from './supabase'
 export async function fetchProperties() {
   const { data, error } = await supabase
     .from('properties')
-    .select('id, name, rent, area')
+    .select('id, name, rent, area, layout')
     .order('created_at', { ascending: false })
   if (error) throw error
   return data
@@ -16,7 +16,7 @@ export async function fetchProperties() {
 export async function fetchProperty(id) {
   const { data, error } = await supabase
     .from('properties')
-    .select('id, name, rent, area')
+    .select('id, name, rent, area, layout')
     .eq('id', id)
     .single()
   if (error) throw error

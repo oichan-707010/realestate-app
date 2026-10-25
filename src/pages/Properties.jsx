@@ -60,6 +60,7 @@ export default function Properties() {
             <h2>{property.name}</h2>
             <p className="rent">家賃：{property.rent.toLocaleString()}円/月</p>
             <p className="area">エリア：{property.area}</p>
+            <p className="layout">間取り：{property.layout}</p>
             <div className="card-actions">
               <Link to={`/properties/${property.id}/edit`} className="button-link small">
                 編集

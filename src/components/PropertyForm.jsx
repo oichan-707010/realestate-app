@@ -6,6 +6,7 @@ export default function PropertyForm({ initialValues, submitLabel, onSubmit }) {
   const [name, setName] = useState(initialValues?.name ?? '')
   const [rent, setRent] = useState(initialValues?.rent?.toString() ?? '')
   const [area, setArea] = useState(initialValues?.area ?? '')
+  const [layout, setLayout] = useState(initialValues?.layout ?? '')
   const [error, setError] = useState('')
   const [submitting, setSubmitting] = useState(false)
 
@@ -14,7 +15,7 @@ export default function PropertyForm({ initialValues, submitLabel, onSubmit }) {
     setError('')
     setSubmitting(true)
     try {
-      await onSubmit({ name: name.trim(), rent: Number(rent), area: area.trim() })
+      await onSubmit({ name: name.trim(), rent: Number(rent), area: area.trim(), layout: layout.trim() })
     } catch (err) {
       setError(`保存に失敗しました：${err.message}`)
       setSubmitting(false)
@@ -41,6 +42,15 @@ export default function PropertyForm({ initialValues, submitLabel, onSubmit }) {
       <label>
         エリア
         <input value={area} onChange={(e) => setArea(e.target.value)} required />
+      </label>
+      <label>
+        間取り
+        <input
+          value={layout}
+          onChange={(e) => setLayout(e.target.value)}
+          placeholder="例：1LDK"
+          required
+        />
       </label>
       {error && <p className="error">{error}</p>}
       <button type="submit" disabled={submitting}>
