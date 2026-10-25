@@ -6,13 +6,18 @@
 
 不動産アプリ（realestate-app）。
 
-Supabase認証付きの不動産管理Webアプリ。メールアドレス＋パスワードで会員登録・ログインし、ログイン後に物件一覧（現在はダミーデータ）を表示する。
+Supabase認証付きの不動産管理Webアプリ。メールアドレス＋パスワードで会員登録・ログインし、自分の物件（物件名・家賃・エリア）を登録・一覧・編集・削除できる。
 
 ## 技術スタック
 
 - React + Vite（JavaScript / JSX）
 - React Router（ルーティング）
-- Supabase（認証。`@supabase/supabase-js`）
+- Supabase（認証・データベース。`@supabase/supabase-js`）
+
+## データベース
+
+- スキーマ変更は `supabase/migrations/` にSQLファイルとして追加し、Supabaseダッシュボードの SQL Editor で実行する（Supabase CLI は未導入）。
+- `properties` テーブルは RLS により、各ユーザーが自分の登録した物件だけを操作できる。
 
 ## 環境変数
 
@@ -34,8 +39,10 @@ Supabase認証付きの不動産管理Webアプリ。メールアドレス＋パ
 - `src/contexts/AuthContext.jsx`: ログイン状態の管理（`useAuth` フック）
 - `src/components/ProtectedRoute.jsx`: 未ログイン時にログイン画面へリダイレクト
 - `src/components/GuestRoute.jsx`: ログイン済み時に物件一覧へリダイレクト
-- `src/pages/`: 画面（Login / Signup / Properties）
-- `src/data/properties.js`: 物件のダミーデータ
+- `src/lib/properties.js`: 物件テーブルの取得・登録・更新・削除
+- `src/components/PropertyForm.jsx`: 物件の新規登録・編集で共通の入力フォーム
+- `src/pages/`: 画面（Login / Signup / Properties / PropertyNew / PropertyEdit）
+- `supabase/migrations/`: データベースのスキーマ定義SQL
 
 ## Git 運用ルール
 
