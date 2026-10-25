@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import { deleteProperty, fetchProperties } from '../lib/properties'
+import { formatPrice, propertyTypeLabel } from '../lib/propertyTypes'
 
 // 物件一覧画面（ログイン必須）
 export default function Properties() {
@@ -57,10 +58,16 @@ export default function Properties() {
       <div className="property-grid">
         {properties?.map((property) => (
           <div key={property.id} className="property-card">
+            {/* 左上のタグ：種別 → 間取り の順に表示（間取り未入力ならタグを出さない） */}
+            <div className="tags">
+              <span className={`tag tag-type tag-${property.property_type}`}>
+                {propertyTypeLabel(property.property_type)}
+              </span>
+              {property.layout && <span className="tag tag-layout">{property.layout}</span>}
+            </div>
             <h2>{property.name}</h2>
-            <p className="rent">家賃：{property.rent.toLocaleString()}円/月</p>
+            <p className="price">{formatPrice(property)}</p>
             <p className="area">エリア：{property.area}</p>
-            <p className="layout">間取り：{property.layout}</p>
             <div className="card-actions">
               <Link to={`/properties/${property.id}/edit`} className="button-link small">
                 編集

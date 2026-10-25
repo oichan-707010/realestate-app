@@ -6,7 +6,7 @@
 
 不動産アプリ（realestate-app）。
 
-Supabase認証付きの不動産管理Webアプリ。メールアドレス＋パスワードで会員登録・ログインし、自分の物件（物件名・家賃・エリア・間取り）を登録・一覧・編集・削除できる。
+Supabase認証付きの不動産管理Webアプリ。メールアドレス＋パスワードで会員登録・ログインし、自分の物件（種別・物件名・金額・エリア・間取り）を登録・一覧・編集・削除できる。
 
 ## 技術スタック
 
@@ -18,6 +18,8 @@ Supabase認証付きの不動産管理Webアプリ。メールアドレス＋パ
 
 - スキーマ変更は `supabase/migrations/` にSQLファイルとして追加し、Supabaseダッシュボードの SQL Editor で実行する（Supabase CLI は未導入）。
 - `properties` テーブルは RLS により、各ユーザーが自分の登録した物件だけを操作できる。
+- `property_type`（種別）は `rental` / `new_house` / `used_house` / `new_condo` / `used_condo`。種別を増やすときは DB の check 制約と `src/lib/propertyTypes.js` の両方を変更する。
+- `price` は賃貸なら月額家賃、それ以外は販売価格（円）。
 
 ## 環境変数
 
@@ -40,6 +42,7 @@ Supabase認証付きの不動産管理Webアプリ。メールアドレス＋パ
 - `src/components/ProtectedRoute.jsx`: 未ログイン時にログイン画面へリダイレクト
 - `src/components/GuestRoute.jsx`: ログイン済み時に物件一覧へリダイレクト
 - `src/lib/properties.js`: 物件テーブルの取得・登録・更新・削除
+- `src/lib/propertyTypes.js`: 物件種別の定義と金額表示（家賃／価格）
 - `src/components/PropertyForm.jsx`: 物件の新規登録・編集で共通の入力フォーム
 - `src/pages/`: 画面（Login / Signup / Properties / PropertyNew / PropertyEdit）
 - `supabase/migrations/`: データベースのスキーマ定義SQL
